@@ -16,7 +16,16 @@
 
     .vichy { height: 10px; background: repeating-linear-gradient(90deg, #8C2F1B 0 18px, #F5EDDC 18px 36px); }
 
-    header { text-align: center; padding: 40px 20px 8px 20px; }
+    /* --- Sélecteur de langue --- */
+    .langues { display: flex; justify-content: flex-end; gap: 6px; max-width: 1060px; margin: 0 auto; padding: 14px 20px 0 20px; }
+    .langues button {
+      font-family: 'Lora', serif; font-size: 14px; padding: 5px 12px; cursor: pointer;
+      border: 1.5px solid #35281E; border-radius: 6px; background: #FDF8EC; color: #35281E; letter-spacing: 0.5px;
+    }
+    .langues button:hover { background: #EADFC8; }
+    .langues button.active { background: #8C2F1B; border-color: #8C2F1B; color: #F5EDDC; font-weight: 600; }
+
+    header { text-align: center; padding: 20px 20px 8px 20px; }
     .surtitre { font-family: 'Caveat', cursive; font-size: 24px; color: #8C2F1B; letter-spacing: 0.5px; }
     h1 { font-family: 'Abril Fatface', serif; font-size: clamp(44px, 8vw, 88px); margin: 6px 0 10px 0; line-height: 1; color: #35281E; font-weight: 400; }
     .devise { font-size: 19px; margin: 0 auto; max-width: 620px; color: #6B5747; font-style: italic; }
@@ -95,320 +104,375 @@
 
 <div class="vichy"></div>
 
+<div class="langues">
+  <button id="lang-fr" onclick="setLang('fr')">FR</button>
+  <button id="lang-en" onclick="setLang('en')">EN</button>
+  <button id="lang-es" onclick="setLang('es')">ES</button>
+</div>
+
 <header>
-  <div class="surtitre">Depuis 1946 — année record du prénom</div>
-  <h1>Le Paradis de Michel</h1>
-  <p class="devise">Monument national, trésor vivant, patrimoine immatériel de l'humanité : le Michel.</p>
+  <div class="surtitre" id="t-surtitre"></div>
+  <h1 id="t-titre"></h1>
+  <p class="devise" id="t-devise"></p>
 </header>
 
 <nav>
-  <button class="active" data-page="accueil" onclick="showPage('accueil', this)">Accueil</button>
-  <button data-page="celebres" onclick="showPage('celebres', this)">Les Michel célèbres</button>
-  <button data-page="chansons" onclick="showPage('chansons', this)">Les chansons</button>
+  <button class="active" id="tab-accueil" onclick="showPage('accueil', this)"></button>
+  <button id="tab-celebres" onclick="showPage('celebres', this)"></button>
+  <button id="tab-chansons" onclick="showPage('chansons', this)"></button>
 </nav>
 <div class="nav-ligne"></div>
 
-<!-- ============================================================
-     PAGE 1 : ACCUEIL
-============================================================ -->
 <main id="page-accueil" class="page visible">
   <div class="intro">
-    <h2>Bienvenue au Paradis du Chmich</h2>
-    <p>Ici, l'apéro est éternel, la pétanque est un sport olympique, et le rosé ne tiédit jamais.</p>
+    <h2 id="t-accueil-h2"></h2>
+    <p id="t-accueil-intro"></p>
   </div>
-
-  <div class="galerie">
-    <figure style="transform: rotate(-1.2deg);">
-      <img src="photos/michel-apero.webp" alt="Michel à l'apéro">
-      <figcaption>
-        <span class="photo-titre">Michel à l'apéro</span>
-        <span class="photo-legende">18h02. Michel est déjà en avance de deux tournées.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(0.8deg);">
-      <img src="photos/michel-petanque.webp" alt="Michel à la pétanque">
-      <figcaption>
-        <span class="photo-titre">Michel à la pétanque</span>
-        <span class="photo-legende">« Tu tires ou tu pointes ? » — Michel, philosophe.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(-0.6deg);">
-      <img src="photos/michel-barbecue.webp" alt="Michel au barbecue">
-      <figcaption>
-        <span class="photo-titre">Michel au barbecue</span>
-        <span class="photo-legende">Personne d'autre ne touche à la pince. Personne.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(1.1deg);">
-      <img src="photos/michel-caravane.webp" alt="Michel devant sa caravane">
-      <figcaption>
-        <span class="photo-titre">Michel en marcel</span>
-        <span class="photo-legende">Devant sa caravane, torse bombé, fier comme un roi.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(-0.9deg);">
-      <img src="photos/michel-rose.webp" alt="Michel qui trinque">
-      <figcaption>
-        <span class="photo-titre">Michel lève son verre</span>
-        <span class="photo-legende">« À la nôtre ! » — et à celle d'après, aussi.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(0.7deg);">
-      <img src="photos/michel-sieste.webp" alt="Michel en pleine sieste">
-      <figcaption>
-        <span class="photo-titre">Michel fait la sieste</span>
-        <span class="photo-legende">Le chapeau sur les cuisses : technique ancestrale.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(-1.0deg);">
-      <img src="photos/michel-marche.webp" alt="Michel au marché">
-      <figcaption>
-        <span class="photo-titre">Michel au marché</span>
-        <span class="photo-legende">Il connaît la fromagère, la fromagère le connaît.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(0.9deg);">
-      <img src="photos/michel-belote.webp" alt="Michel à la belote">
-      <figcaption>
-        <span class="photo-titre">Michel à la belote</span>
-        <span class="photo-legende">Capot. Encore. On ne joue plus avec Michel.</span>
-      </figcaption>
-    </figure>
-    <figure style="transform: rotate(-0.7deg);">
-      <img src="photos/michel-tracteur.webp" alt="Michel au potager">
-      <figcaption>
-        <span class="photo-titre">Michel et son potager</span>
-        <span class="photo-legende">Ses tomates ont gagné trois concours cantonaux.</span>
-      </figcaption>
-    </figure>
-  </div>
-
-  <div class="citation">« Tout Michel est unique. C'est d'ailleurs troublant qu'ils soient tous pareils. »</div>
+  <div class="galerie" id="galerie"></div>
+  <div class="citation" id="t-citation"></div>
 </main>
 
-<!-- ============================================================
-     PAGE 2 : LES MICHEL CÉLÈBRES
-============================================================ -->
 <main id="page-celebres" class="page">
   <div class="intro">
-    <h2>Le Panthéon des Michel</h2>
-    <p>Dix hommes. Un seul prénom. Un patrimoine national que le monde entier nous envie (probablement).</p>
+    <h2 id="t-celebres-h2"></h2>
+    <p id="t-celebres-intro"></p>
   </div>
-
-  <div class="celebres">
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">01</span>
-        <div>
-          <h3>Michel Polnareff</h3>
-          <span class="celebre-metier">Chanteur, pionnier de la pop française</span>
-        </div>
-      </div>
-      <p class="celebre-bio">Voix haut perchée, lunettes blanches indécollables et mélodies immortelles : depuis « La poupée qui fait non » (1966), Polnareff a offert à la France « Love me, please love me », « Lettre à France » ou « Goodbye Marylou ». Exilé de longue date en Californie, il reste l'un des compositeurs les plus doués de sa génération.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>En 1972, pour annoncer son spectacle à l'Olympia, il placarde dans Paris 6 000 affiches où il pose fesses à l'air. Résultat : condamné pour outrage aux bonnes mœurs à une amende par affiche. L'histoire retiendra que c'est le postérieur le plus cher de la chanson française.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">02</span>
-        <div>
-          <h3>Michel Sardou</h3>
-          <span class="celebre-metier">Chanteur, monument à lui tout seul</span>
-        </div>
-      </div>
-      <p class="celebre-bio">Plus de 350 chansons, 100 millions de disques : « Les lacs du Connemara », « La maladie d'amour », « Je vole »… Adoré, contesté, imité dans tous les karaokés, Sardou est la bande-son officielle de tous les mariages de France depuis un demi-siècle.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>« Les lacs du Connemara » a été écrite sans que personne n'ait mis les pieds en Irlande : la sonorité « cornemuse » venait d'un synthétiseur, et Pierre Delanoë a rédigé les paroles à l'aide d'un guide touristique. Le tube celtique le plus français de l'histoire.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">03</span>
-        <div>
-          <h3>Michel Platini</h3>
-          <span class="celebre-metier">Footballeur, triple Ballon d'or</span>
-        </div>
-      </div>
-      <p class="celebre-bio">Numéro 10 légendaire des Bleus, roi du coup franc, champion d'Europe 1984 avec 9 buts en 5 matchs — record toujours invaincu. Trois Ballons d'or consécutifs (1983, 1984, 1985), une carrière dorée à la Juventus, puis une reconversion de dirigeant plus… mouvementée.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>Adolescent, il est recalé par le FC Metz après avoir raté un test médical : on lui diagnostique une insuffisance respiratoire. Il signe donc à Nancy. Le joueur jugé « pas assez costaud » remportera trois Ballons d'or. Le médecin de Metz, lui, préfère qu'on n'en parle plus.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">04</span>
-        <div>
-          <h3>Michel Drucker</h3>
-          <span class="celebre-metier">Animateur de télévision éternel</span>
-        </div>
-      </div>
-      <p class="celebre-bio">À l'antenne depuis 1964, Drucker a survécu à l'ORTF, au passage à la couleur, à la TNT et à onze présidents de la République ou presque. Son canapé rouge de « Vivement dimanche » est le meuble le plus célèbre de France.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>Sa longévité est telle qu'elle est devenue un gag national : entré à la télévision sous de Gaulle, il y est toujours. En France, deux choses sont certaines : les impôts, et Michel Drucker le dimanche après-midi.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">05</span>
-        <div>
-          <h3>Michel Blanc</h3>
-          <span class="celebre-metier">Acteur et réalisateur</span>
-        </div>
-      </div>
-      <p class="celebre-bio">Membre fondateur de la troupe du Splendid, il est à jamais Jean-Claude Dusse des « Bronzés », l'éternel loser qui espère « conclure ». Mais derrière le comique se cachait un immense acteur, récompensé à Cannes et capable de tout jouer, du burlesque au tragique.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>L'éternel malchanceux du cinéma français était en réalité l'un des plus primés : prix d'interprétation à Cannes 1986 pour « Tenue de soirée », puis prix du scénario à Cannes 1994 pour « Grosse fatigue »… où il joue son propre rôle face à un sosie qui lui vole sa vie. Même pour se plaindre de lui-même, il gagnait des prix.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">06</span>
-        <div>
-          <h3>Michel Houellebecq</h3>
-          <span class="celebre-metier">Écrivain, prix Goncourt 2010</span>
-        </div>
-      </div>
-      <p class="celebre-bio">Romancier le plus traduit, le plus commenté et le plus dépressif de la littérature française contemporaine. « Les Particules élémentaires », « La Carte et le Territoire », « Soumission » : chaque parution est un événement national, cigarette au bec comprise.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>En 2011, il disparaît en pleine tournée de promotion, au point que la presse évoque un enlèvement — il avait simplement oublié de prévenir. Beau joueur, il en fait un film en 2014 : « L'Enlèvement de Michel Houellebecq », où il joue lui-même son propre kidnapping. Méta, comme toujours.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">07</span>
-        <div>
-          <h3>Michel Fugain</h3>
-          <span class="celebre-metier">Chanteur, chef de troupe</span>
-        </div>
-      </div>
-      <p class="celebre-bio">« Une belle histoire », « Fais comme l'oiseau », « Je n'aurai pas le temps » : Fugain a écrit la bande-son des étés français des années 70, avec un sens de la mélodie solaire et un enthousiasme inoxydable.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>En 1972, il fonde le Big Bazar : une troupe d'une quarantaine de chanteurs-danseurs en costumes multicolores, mi-comédie musicale, mi-communauté hippie, qui vivait et tournait ensemble. Imaginez une colonie de vacances géante… numéro un du hit-parade.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">08</span>
-        <div>
-          <h3>Michel Galabru</h3>
-          <span class="celebre-metier">Acteur, 250 films au compteur</span>
-        </div>
-      </div>
-      <p class="celebre-bio">L'adjudant Gerber du « Gendarme de Saint-Tropez », le père de « La Cage aux folles », mais aussi un tragédien bouleversant, César du meilleur acteur pour « Le Juge et l'Assassin » (1977). Une gouaille, une trogne, une légende.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>Il assumait avec une franchise désarmante d'avoir tourné dans des dizaines de navets « pour payer les factures », déclarant en substance qu'il acceptait tout et triait après. Résultat : 250 films, quelques chefs-d'œuvre, beaucoup de nanars — et zéro regret.</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">09</span>
-        <div>
-          <h3>Michel Berger</h3>
-          <span class="celebre-metier">Auteur-compositeur, orfèvre de la variété</span>
-        </div>
-      </div>
-      <p class="celebre-bio">Pygmalion de France Gall, créateur de « Starmania » avec Luc Plamondon, auteur de « Message personnel » pour Françoise Hardy et de « Quelque chose de Tennessee » pour Johnny. Disparu trop tôt en 1992, il reste le mélodiste absolu de la chanson française.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>Michel Berger ne s'appelait pas Berger : son vrai nom était Michel Hamburger, fils du grand professeur de médecine Jean Hamburger. On comprend qu'un futur crooner ait préféré éviter de signer ses ballades romantiques « Hamburger ».</p>
-      </div>
-    </article>
-
-    <article>
-      <div class="celebre-entete">
-        <span class="celebre-numero">10</span>
-        <div>
-          <h3>Michel Audiard</h3>
-          <span class="celebre-metier">Dialoguiste, mitrailleur de répliques</span>
-        </div>
-      </div>
-      <p class="celebre-bio">La plume derrière « Les Tontons flingueurs », « Un singe en hiver » ou « Le cave se rebiffe ». Ses dialogues d'argot ciselé sont récités par cœur dans tous les dîners de famille depuis 60 ans. Son fils Jacques a eu une Palme d'or ; lui, il a eu l'immortalité.</p>
-      <div class="anecdote">
-        <span class="anecdote-label">L'anecdote</span>
-        <p>C'est à lui qu'on doit la réplique la plus citée du cinéma français, dans « Les Tontons flingueurs » (1963) : « Les cons, ça ose tout. C'est même à ça qu'on les reconnaît. » Soixante ans plus tard, elle sert encore dans toutes les réunions de copropriété.</p>
-      </div>
-    </article>
-  </div>
+  <div class="celebres" id="celebres"></div>
 </main>
 
-<!-- ============================================================
-     PAGE 3 : LES CHANSONS
-============================================================ -->
 <main id="page-chansons" class="page etroit">
   <div class="intro">
-    <h2>Le Juke-box des Michel</h2>
-    <p>Des Beatles à France Inter : la preuve en musique que ce prénom inspire les plus grands.</p>
+    <h2 id="t-chansons-h2"></h2>
+    <p id="t-chansons-intro"></p>
   </div>
-
-  <div class="chansons">
-    <article>
-      <div class="chanson-entete">
-        <h3>« Michelle »</h3>
-        <span class="chanson-artiste">The Beatles — 1965</span>
-      </div>
-      <p class="chanson-histoire">Paul McCartney a composé « Michelle » en pastichant les chanteurs de cabaret rive gauche qu'il imitait, adolescent, dans les soirées d'étudiants à Liverpool pour faire chic. Des années plus tard, John Lennon lui suggère d'en faire une vraie chanson : Paul demande alors à Jan Vaughan, professeure de français et épouse d'un ami, de lui souffler des mots qui sonnent bien — ce sera « Michelle, ma belle, sont les mots qui vont très bien ensemble ». La chanson remporte le Grammy de la chanson de l'année en 1967. Le prénom devait juste « sonner français ». Mission accomplie.</p>
-      <div class="video">
-        <iframe src="https://www.youtube.com/embed/WoBLi5eE-wY" title="« Michelle »" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </article>
-
-    <article>
-      <div class="chanson-entete">
-        <h3>« Michèle »</h3>
-        <span class="chanson-artiste">Gérard Lenorman — 1976</span>
-      </div>
-      <p class="chanson-histoire">À l'origine, ce texte du jeune Didier Barbelivien — inspiré d'un flirt de lycée à Chaptal — s'appelait… « Marcelle ». Lenorman adore la mélodie mais refuse net le prénom, « tout sauf romantique », et le remplace par Michèle : celui d'une amourette de ses 15 ans en Auvergne, qui s'était terminée avec le père de la demoiselle le menaçant d'un fusil. Enregistrée à l'automne 1975, la chanson se classe numéro un en février 1976 et se vend à plus de 300 000 exemplaires. Merci Michèle. Et pardon, Marcelle.</p>
-      <div class="video">
-        <iframe src="https://www.youtube.com/embed/hTE4KuJfPwE" title="« Michèle »" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </article>
-
-    <article>
-      <div class="chanson-entete">
-        <h3>« Les Michel »</h3>
-        <span class="chanson-artiste">Frédéric Fromet (France Inter) — 2016</span>
-      </div>
-      <p class="chanson-histoire">La seule chanson de l'histoire entièrement consacrée aux Michel en tant que peuple. Diffusée dans « Si tu écoutes, j'annule tout » sur France Inter en janvier 2016, cette chanson satirique de Frédéric Fromet passe en revue les Michel de France avec la tendresse moqueuse qui caractérise ce site. Autant dire : notre hymne officiel.</p>
-      <div class="video">
-        <iframe src="https://www.youtube.com/embed/2mDFFkte9gE" title="« Les Michel »" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </article>
-  </div>
+  <div class="chansons" id="chansons"></div>
 </main>
 
 <footer>
   <div class="footer-contenu">
-    <span class="footer-logo">Le Paradis de Michel</span>
-    <span class="footer-note">Site 100 % affectueux. Aucun Michel n'a été maltraité pendant la fabrication de ce site.</span>
+    <span class="footer-logo" id="t-footer-logo"></span>
+    <span class="footer-note" id="t-footer-note"></span>
   </div>
   <div class="vichy"></div>
 </footer>
 
 <script>
-  function showPage(page, btn) {
-    document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('visible'); });
-    document.getElementById('page-' + page).classList.add('visible');
-    document.querySelectorAll('nav button').forEach(function (b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    window.scrollTo({ top: 0 });
+// ============================================================
+// Contenu trilingue
+// ============================================================
+const PHOTOS = [
+  { src: 'photos/michel-apero.webp',    tilt: '-1.2deg' },
+  { src: 'photos/michel-petanque.webp', tilt: '0.8deg'  },
+  { src: 'photos/michel-barbecue.webp', tilt: '-0.6deg' },
+  { src: 'photos/michel-caravane.webp', tilt: '1.1deg'  },
+  { src: 'photos/michel-rose.webp',     tilt: '-0.9deg' },
+  { src: 'photos/michel-sieste.webp',   tilt: '0.7deg'  },
+  { src: 'photos/michel-marche.webp',   tilt: '-1.0deg' },
+  { src: 'photos/michel-belote.webp',   tilt: '0.9deg'  },
+  { src: 'photos/michel-tracteur.webp', tilt: '-0.7deg' }
+];
+
+const EMBEDS = [
+  'https://www.youtube.com/embed/WoBLi5eE-wY',
+  'https://www.youtube.com/embed/hTE4KuJfPwE',
+  'https://www.youtube.com/embed/2mDFFkte9gE'
+];
+
+const I18N = {
+
+  // ----------------------------------------------------------
+  fr: {
+    htmlTitle: "Le Paradis de Michel",
+    surtitre: "Depuis 1946 — année record du prénom",
+    titre: "Le Paradis de Michel",
+    devise: "Monument national, trésor vivant, patrimoine immatériel de l'humanité : le Michel.",
+    tabs: ["Accueil", "Les Michel célèbres", "Les chansons"],
+    accueilH2: "Bienvenue au Paradis du Chmich",
+    accueilIntro: "Ici, l'apéro est éternel, la pétanque est un sport olympique, et le rosé ne tiédit jamais.",
+    citation: "« Tout Michel est unique. C'est d'ailleurs troublant qu'ils soient tous pareils. »",
+    celebresH2: "Le Panthéon des Michel",
+    celebresIntro: "Dix hommes. Un seul prénom. Un patrimoine national que le monde entier nous envie (probablement).",
+    chansonsH2: "Le Juke-box des Michel",
+    chansonsIntro: "Des Beatles à France Inter : la preuve en musique que ce prénom inspire les plus grands.",
+    anecdoteLabel: "L'anecdote",
+    footerNote: "Site 100 % affectueux. Aucun Michel n'a été maltraité pendant la fabrication de ce site.",
+    photos: [
+      { titre: "Michel à l'apéro", legende: "18h02. Michel est déjà en avance de deux tournées." },
+      { titre: "Michel à la pétanque", legende: "« Tu tires ou tu pointes ? » — Michel, philosophe." },
+      { titre: "Michel au barbecue", legende: "Personne d'autre ne touche à la pince. Personne." },
+      { titre: "Michel en marcel", legende: "Devant sa caravane, torse bombé, fier comme un roi." },
+      { titre: "Michel lève son verre", legende: "« À la nôtre ! » — et à celle d'après, aussi." },
+      { titre: "Michel fait la sieste", legende: "Le chapeau sur les cuisses : technique ancestrale." },
+      { titre: "Michel au marché", legende: "Il connaît la fromagère, la fromagère le connaît." },
+      { titre: "Michel à la belote", legende: "Capot. Encore. On ne joue plus avec Michel." },
+      { titre: "Michel et son potager", legende: "Ses tomates ont gagné trois concours cantonaux." }
+    ],
+    celebres: [
+      { nom: "Michel Polnareff", metier: "Chanteur, pionnier de la pop française",
+        bio: "Voix haut perchée, lunettes blanches indécollables et mélodies immortelles : depuis « La poupée qui fait non » (1966), Polnareff a offert à la France « Love me, please love me », « Lettre à France » ou « Goodbye Marylou ». Exilé de longue date en Californie, il reste l'un des compositeurs les plus doués de sa génération.",
+        anecdote: "En 1972, pour annoncer son spectacle à l'Olympia, il placarde dans Paris 6 000 affiches où il pose fesses à l'air. Résultat : condamné pour outrage aux bonnes mœurs à une amende par affiche. L'histoire retiendra que c'est le postérieur le plus cher de la chanson française." },
+      { nom: "Michel Sardou", metier: "Chanteur, monument à lui tout seul",
+        bio: "Plus de 350 chansons, 100 millions de disques : « Les lacs du Connemara », « La maladie d'amour », « Je vole »… Adoré, contesté, imité dans tous les karaokés, Sardou est la bande-son officielle de tous les mariages de France depuis un demi-siècle.",
+        anecdote: "« Les lacs du Connemara » a été écrite sans que personne n'ait mis les pieds en Irlande : la sonorité « cornemuse » venait d'un synthétiseur, et Pierre Delanoë a rédigé les paroles à l'aide d'un guide touristique. Le tube celtique le plus français de l'histoire." },
+      { nom: "Michel Platini", metier: "Footballeur, triple Ballon d'or",
+        bio: "Numéro 10 légendaire des Bleus, roi du coup franc, champion d'Europe 1984 avec 9 buts en 5 matchs — record toujours invaincu. Trois Ballons d'or consécutifs (1983, 1984, 1985), une carrière dorée à la Juventus, puis une reconversion de dirigeant plus… mouvementée.",
+        anecdote: "Adolescent, il est recalé par le FC Metz après avoir raté un test médical : on lui diagnostique une insuffisance respiratoire. Il signe donc à Nancy. Le joueur jugé « pas assez costaud » remportera trois Ballons d'or. Le médecin de Metz, lui, préfère qu'on n'en parle plus." },
+      { nom: "Michel Drucker", metier: "Animateur de télévision éternel",
+        bio: "À l'antenne depuis 1964, Drucker a survécu à l'ORTF, au passage à la couleur, à la TNT et à onze présidents de la République ou presque. Son canapé rouge de « Vivement dimanche » est le meuble le plus célèbre de France.",
+        anecdote: "Sa longévité est telle qu'elle est devenue un gag national : entré à la télévision sous de Gaulle, il y est toujours. En France, deux choses sont certaines : les impôts, et Michel Drucker le dimanche après-midi." },
+      { nom: "Michel Blanc", metier: "Acteur et réalisateur",
+        bio: "Membre fondateur de la troupe du Splendid, il est à jamais Jean-Claude Dusse des « Bronzés », l'éternel loser qui espère « conclure ». Mais derrière le comique se cachait un immense acteur, récompensé à Cannes et capable de tout jouer, du burlesque au tragique.",
+        anecdote: "L'éternel malchanceux du cinéma français était en réalité l'un des plus primés : prix d'interprétation à Cannes 1986 pour « Tenue de soirée », puis prix du scénario à Cannes 1994 pour « Grosse fatigue »… où il joue son propre rôle face à un sosie qui lui vole sa vie. Même pour se plaindre de lui-même, il gagnait des prix." },
+      { nom: "Michel Houellebecq", metier: "Écrivain, prix Goncourt 2010",
+        bio: "Romancier le plus traduit, le plus commenté et le plus dépressif de la littérature française contemporaine. « Les Particules élémentaires », « La Carte et le Territoire », « Soumission » : chaque parution est un événement national, cigarette au bec comprise.",
+        anecdote: "En 2011, il disparaît en pleine tournée de promotion, au point que la presse évoque un enlèvement — il avait simplement oublié de prévenir. Beau joueur, il en fait un film en 2014 : « L'Enlèvement de Michel Houellebecq », où il joue lui-même son propre kidnapping. Méta, comme toujours." },
+      { nom: "Michel Fugain", metier: "Chanteur, chef de troupe",
+        bio: "« Une belle histoire », « Fais comme l'oiseau », « Je n'aurai pas le temps » : Fugain a écrit la bande-son des étés français des années 70, avec un sens de la mélodie solaire et un enthousiasme inoxydable.",
+        anecdote: "En 1972, il fonde le Big Bazar : une troupe d'une quarantaine de chanteurs-danseurs en costumes multicolores, mi-comédie musicale, mi-communauté hippie, qui vivait et tournait ensemble. Imaginez une colonie de vacances géante… numéro un du hit-parade." },
+      { nom: "Michel Galabru", metier: "Acteur, 250 films au compteur",
+        bio: "L'adjudant Gerber du « Gendarme de Saint-Tropez », le père de « La Cage aux folles », mais aussi un tragédien bouleversant, César du meilleur acteur pour « Le Juge et l'Assassin » (1977). Une gouaille, une trogne, une légende.",
+        anecdote: "Il assumait avec une franchise désarmante d'avoir tourné dans des dizaines de navets « pour payer les factures », déclarant en substance qu'il acceptait tout et triait après. Résultat : 250 films, quelques chefs-d'œuvre, beaucoup de nanars — et zéro regret." },
+      { nom: "Michel Berger", metier: "Auteur-compositeur, orfèvre de la variété",
+        bio: "Pygmalion de France Gall, créateur de « Starmania » avec Luc Plamondon, auteur de « Message personnel » pour Françoise Hardy et de « Quelque chose de Tennessee » pour Johnny. Disparu trop tôt en 1992, il reste le mélodiste absolu de la chanson française.",
+        anecdote: "Michel Berger ne s'appelait pas Berger : son vrai nom était Michel Hamburger, fils du grand professeur de médecine Jean Hamburger. On comprend qu'un futur crooner ait préféré éviter de signer ses ballades romantiques « Hamburger »." },
+      { nom: "Michel Audiard", metier: "Dialoguiste, mitrailleur de répliques",
+        bio: "La plume derrière « Les Tontons flingueurs », « Un singe en hiver » ou « Le cave se rebiffe ». Ses dialogues d'argot ciselé sont récités par cœur dans tous les dîners de famille depuis 60 ans. Son fils Jacques a eu une Palme d'or ; lui, il a eu l'immortalité.",
+        anecdote: "C'est à lui qu'on doit la réplique la plus citée du cinéma français, dans « Les Tontons flingueurs » (1963) : « Les cons, ça ose tout. C'est même à ça qu'on les reconnaît. » Soixante ans plus tard, elle sert encore dans toutes les réunions de copropriété." }
+    ],
+    chansons: [
+      { titre: "« Michelle »", artiste: "The Beatles — 1965",
+        histoire: "Paul McCartney a composé « Michelle » en pastichant les chanteurs de cabaret rive gauche qu'il imitait, adolescent, dans les soirées d'étudiants à Liverpool pour faire chic. Des années plus tard, John Lennon lui suggère d'en faire une vraie chanson : Paul demande alors à Jan Vaughan, professeure de français et épouse d'un ami, de lui souffler des mots qui sonnent bien — ce sera « Michelle, ma belle, sont les mots qui vont très bien ensemble ». La chanson remporte le Grammy de la chanson de l'année en 1967. Le prénom devait juste « sonner français ». Mission accomplie." },
+      { titre: "« Michèle »", artiste: "Gérard Lenorman — 1976",
+        histoire: "À l'origine, ce texte du jeune Didier Barbelivien — inspiré d'un flirt de lycée à Chaptal — s'appelait… « Marcelle ». Lenorman adore la mélodie mais refuse net le prénom, « tout sauf romantique », et le remplace par Michèle : celui d'une amourette de ses 15 ans en Auvergne, qui s'était terminée avec le père de la demoiselle le menaçant d'un fusil. Enregistrée à l'automne 1975, la chanson se classe numéro un en février 1976 et se vend à plus de 300 000 exemplaires. Merci Michèle. Et pardon, Marcelle." },
+      { titre: "« Les Michel »", artiste: "Frédéric Fromet (France Inter) — 2016",
+        histoire: "La seule chanson de l'histoire entièrement consacrée aux Michel en tant que peuple. Diffusée dans « Si tu écoutes, j'annule tout » sur France Inter en janvier 2016, cette chanson satirique de Frédéric Fromet passe en revue les Michel de France avec la tendresse moqueuse qui caractérise ce site. Autant dire : notre hymne officiel." }
+    ]
+  },
+
+  // ----------------------------------------------------------
+  en: {
+    htmlTitle: "Michel's Paradise",
+    surtitre: "Since 1946 — the name's record year",
+    titre: "Michel's Paradise",
+    devise: "National monument, living treasure, intangible heritage of humanity: the Michel.",
+    tabs: ["Home", "Famous Michels", "The Songs"],
+    accueilH2: "Welcome to Chmich's Paradise",
+    accueilIntro: "Here, apéritif hour never ends, pétanque is an Olympic sport, and the rosé never gets warm.",
+    citation: "“Every Michel is unique. Which makes it rather troubling that they are all exactly alike.”",
+    celebresH2: "The Pantheon of Michels",
+    celebresIntro: "Ten men. One first name. A national treasure the whole world envies us (probably).",
+    chansonsH2: "The Michel Jukebox",
+    chansonsIntro: "From the Beatles to French radio: musical proof that this name inspires the greatest.",
+    anecdoteLabel: "The anecdote",
+    footerNote: "A 100% affectionate website. No Michel was harmed in the making of this site.",
+    photos: [
+      { titre: "Michel at apéritif hour", legende: "6:02 pm. Michel is already two rounds ahead of everyone." },
+      { titre: "Michel playing pétanque", legende: "“Shoot or point?” — Michel, philosopher." },
+      { titre: "Michel at the barbecue", legende: "Nobody else touches the tongs. Nobody." },
+      { titre: "Michel in his tank top", legende: "In front of his caravan, chest out, proud as a king." },
+      { titre: "Michel raises his glass", legende: "“Cheers!” — and to the next one too." },
+      { titre: "Michel takes a nap", legende: "Hat on the lap: an ancestral technique." },
+      { titre: "Michel at the market", legende: "He knows the cheese lady, the cheese lady knows him." },
+      { titre: "Michel playing cards", legende: "Clean sweep. Again. Nobody plays belote with Michel anymore." },
+      { titre: "Michel and his vegetable garden", legende: "His tomatoes have won three county contests." }
+    ],
+    celebres: [
+      { nom: "Michel Polnareff", metier: "Singer, pioneer of French pop",
+        bio: "High-pitched voice, trademark white sunglasses and immortal melodies: since “La poupée qui fait non” (1966), Polnareff has given France “Love me, please love me”, “Lettre à France” and “Goodbye Marylou”. A long-time California exile, he remains one of the most gifted composers of his generation.",
+        anecdote: "In 1972, to promote his show at the Olympia, he plastered Paris with 6,000 posters of himself posing bare-bottomed. The result: convicted of public indecency, with a fine per poster. History will remember it as the most expensive backside in French music." },
+      { nom: "Michel Sardou", metier: "Singer, a monument in his own right",
+        bio: "Over 350 songs and 100 million records: “Les lacs du Connemara”, “La maladie d'amour”, “Je vole”… Adored, contested, imitated in every karaoke bar, Sardou has been the official soundtrack of every French wedding for half a century.",
+        anecdote: "“Les lacs du Connemara” was written without anyone having set foot in Ireland: the “bagpipes” sound came from a synthesizer, and lyricist Pierre Delanoë worked from a tourist guidebook. The most French Celtic hit in history." },
+      { nom: "Michel Platini", metier: "Footballer, three-time Ballon d'Or winner",
+        bio: "Legendary number 10 of the French national team, king of the free kick, 1984 European champion with 9 goals in 5 matches — a record still unbeaten. Three consecutive Ballons d'Or (1983, 1984, 1985), a golden career at Juventus, then a rather more… turbulent second life as a football executive.",
+        anecdote: "As a teenager, he was rejected by FC Metz after failing a medical test: doctors diagnosed a respiratory deficiency. So he signed with Nancy instead. The player deemed “not strong enough” went on to win three Ballons d'Or. The Metz doctor would rather we changed the subject." },
+      { nom: "Michel Drucker", metier: "Eternal television host",
+        bio: "On air since 1964, Drucker has survived the ORTF, the switch to color TV, digital television and roughly eleven French presidents. The red couch of his Sunday show “Vivement dimanche” is the most famous piece of furniture in France.",
+        anecdote: "His longevity has become a national running joke: he joined television under de Gaulle and he is still there. In France, two things are certain: taxes, and Michel Drucker on Sunday afternoon." },
+      { nom: "Michel Blanc", metier: "Actor and director",
+        bio: "A founding member of the Splendid troupe, he will forever be Jean-Claude Dusse of “Les Bronzés”, the eternal loser hoping to “seal the deal”. But behind the comedy hid an immense actor, awarded at Cannes and capable of playing anything, from slapstick to tragedy.",
+        anecdote: "French cinema's eternal unlucky man was actually one of its most awarded: Best Actor at Cannes 1986 for “Tenue de soirée”, then Best Screenplay at Cannes 1994 for “Grosse fatigue”… in which he plays himself, facing a lookalike who steals his life. Even when complaining about himself, he won prizes." },
+      { nom: "Michel Houellebecq", metier: "Writer, 2010 Goncourt Prize",
+        bio: "The most translated, most commented and most depressed novelist of contemporary French literature. “Atomised”, “The Map and the Territory”, “Submission”: each new book is a national event, cigarette included.",
+        anecdote: "In 2011, he vanished in the middle of a promotional tour, to the point that the press speculated about a kidnapping — he had simply forgotten to tell anyone. Being a good sport, he turned it into a film in 2014: “The Kidnapping of Michel Houellebecq”, in which he plays himself during his own abduction. Meta, as always." },
+      { nom: "Michel Fugain", metier: "Singer, leader of the troupe",
+        bio: "“Une belle histoire”, “Fais comme l'oiseau”, “Je n'aurai pas le temps”: Fugain wrote the soundtrack of French summers in the 1970s, with a gift for sunny melodies and stainless enthusiasm.",
+        anecdote: "In 1972 he founded the Big Bazar: a troupe of some forty singer-dancers in multicolored costumes, half musical, half hippie commune, who lived and toured together. Picture a giant summer camp… at number one in the charts." },
+      { nom: "Michel Galabru", metier: "Actor, 250 films on the clock",
+        bio: "Sergeant Gerber in “Le Gendarme de Saint-Tropez”, the father in “La Cage aux Folles”, but also a devastating tragedian, César Award for Best Actor for “The Judge and the Assassin” (1977). A voice, a mug, a legend.",
+        anecdote: "He admitted with disarming frankness that he had appeared in dozens of turkeys “to pay the bills”, saying in essence that he accepted everything and sorted it out later. The result: 250 films, a few masterpieces, plenty of duds — and zero regrets." },
+      { nom: "Michel Berger", metier: "Songwriter, goldsmith of French pop",
+        bio: "Pygmalion of France Gall, creator of “Starmania” with Luc Plamondon, author of “Message personnel” for Françoise Hardy and “Quelque chose de Tennessee” for Johnny Hallyday. Gone too soon in 1992, he remains the absolute melodist of French song.",
+        anecdote: "Michel Berger's real name wasn't Berger: it was Michel Hamburger, son of the great medicine professor Jean Hamburger. One can understand why a future crooner preferred not to sign his romantic ballads “Hamburger”." },
+      { nom: "Michel Audiard", metier: "Dialogue writer, machine-gunner of one-liners",
+        bio: "The pen behind “Les Tontons flingueurs”, “Un singe en hiver” and “Le cave se rebiffe”. His chiseled slang dialogues have been recited by heart at every French family dinner for 60 years. His son Jacques got a Palme d'Or; he got immortality.",
+        anecdote: "He wrote the most quoted line in French cinema, in “Les Tontons flingueurs” (1963): “Idiots dare anything. That's actually how you recognize them.” Sixty years later, it still comes in handy at every homeowners' meeting." }
+    ],
+    chansons: [
+      { titre: "“Michelle”", artiste: "The Beatles — 1965",
+        histoire: "Paul McCartney composed “Michelle” as a pastiche of the Left Bank cabaret singers he used to imitate as a teenager at student parties in Liverpool, to look sophisticated. Years later, John Lennon suggested turning it into a real song: Paul asked Jan Vaughan, a French teacher and the wife of a friend, to suggest words that sounded good — that became “Michelle, ma belle, sont les mots qui vont très bien ensemble”. The song won the Grammy for Song of the Year in 1967. The name just had to “sound French”. Mission accomplished." },
+      { titre: "“Michèle”", artiste: "Gérard Lenorman — 1976",
+        histoire: "Originally, this text by young Didier Barbelivien — inspired by a high-school flirt — was called… “Marcelle”. Lenorman loved the melody but flatly refused the name, “anything but romantic”, and replaced it with Michèle: the name of a summer love from when he was 15 in Auvergne, which had ended with the young lady's father threatening him with a shotgun. Recorded in the autumn of 1975, the song hit number one in February 1976 and sold over 300,000 copies. Thank you, Michèle. And sorry, Marcelle." },
+      { titre: "“Les Michel”", artiste: "Frédéric Fromet (France Inter) — 2016",
+        histoire: "The only song in history entirely devoted to the Michels as a people. Broadcast on the French public radio show “Si tu écoutes, j'annule tout” in January 2016, this satirical song by Frédéric Fromet reviews the Michels of France with the same mocking tenderness that defines this website. In other words: our official anthem." }
+    ]
+  },
+
+  // ----------------------------------------------------------
+  es: {
+    htmlTitle: "El Paraíso de Michel",
+    surtitre: "Desde 1946 — el año récord del nombre",
+    titre: "El Paraíso de Michel",
+    devise: "Monumento nacional, tesoro viviente, patrimonio inmaterial de la humanidad: el Michel.",
+    tabs: ["Inicio", "Los Michel célebres", "Las canciones"],
+    accueilH2: "Bienvenido al Paraíso del Chmich",
+    accueilIntro: "Aquí el aperitivo es eterno, la petanca es deporte olímpico y el rosado nunca se calienta.",
+    citation: "«Cada Michel es único. Lo inquietante es que todos sean exactamente iguales.»",
+    celebresH2: "El Panteón de los Michel",
+    celebresIntro: "Diez hombres. Un solo nombre. Un patrimonio nacional que el mundo entero nos envidia (probablemente).",
+    chansonsH2: "La rocola de los Michel",
+    chansonsIntro: "De los Beatles a la radio francesa: la prueba musical de que este nombre inspira a los más grandes.",
+    anecdoteLabel: "La anécdota",
+    footerNote: "Sitio 100 % cariñoso. Ningún Michel fue maltratado durante la fabricación de este sitio.",
+    photos: [
+      { titre: "Michel en el aperitivo", legende: "18:02. Michel ya lleva dos rondas de ventaja." },
+      { titre: "Michel jugando petanca", legende: "«¿Tiras o apuntas?» — Michel, filósofo." },
+      { titre: "Michel en el asado", legende: "Nadie más toca las pinzas. Nadie." },
+      { titre: "Michel en camiseta", legende: "Frente a su caravana, pecho inflado, orgulloso como un rey." },
+      { titre: "Michel levanta su copa", legende: "«¡Salud!» — y por la siguiente también." },
+      { titre: "Michel hace la siesta", legende: "El sombrero sobre las piernas: técnica ancestral." },
+      { titre: "Michel en el mercado", legende: "Él conoce a la quesera, la quesera lo conoce." },
+      { titre: "Michel jugando cartas", legende: "Arrasó. Otra vez. Ya nadie juega belote con Michel." },
+      { titre: "Michel y su huerta", legende: "Sus tomates han ganado tres concursos cantonales." }
+    ],
+    celebres: [
+      { nom: "Michel Polnareff", metier: "Cantante, pionero del pop francés",
+        bio: "Voz aguda, gafas blancas inseparables y melodías inmortales: desde «La poupée qui fait non» (1966), Polnareff le regaló a Francia «Love me, please love me», «Lettre à France» y «Goodbye Marylou». Exiliado desde hace décadas en California, sigue siendo uno de los compositores más dotados de su generación.",
+        anecdote: "En 1972, para anunciar su espectáculo en el Olympia, empapeló París con 6.000 carteles en los que posaba con el trasero al aire. Resultado: condenado por atentado contra la moral, con una multa por cartel. La historia lo recordará como el trasero más caro de la canción francesa." },
+      { nom: "Michel Sardou", metier: "Cantante, un monumento en sí mismo",
+        bio: "Más de 350 canciones y 100 millones de discos: «Les lacs du Connemara», «La maladie d'amour», «Je vole»… Adorado, cuestionado, imitado en todos los karaokes, Sardou es la banda sonora oficial de todas las bodas de Francia desde hace medio siglo.",
+        anecdote: "«Les lacs du Connemara» se escribió sin que nadie hubiera pisado Irlanda: el sonido de «gaita» salía de un sintetizador, y el letrista Pierre Delanoë trabajó con una guía turística. El éxito celta más francés de la historia." },
+      { nom: "Michel Platini", metier: "Futbolista, triple Balón de Oro",
+        bio: "Legendario número 10 de la selección francesa, rey del tiro libre, campeón de Europa en 1984 con 9 goles en 5 partidos — récord aún vigente. Tres Balones de Oro consecutivos (1983, 1984, 1985), una carrera dorada en la Juventus, y luego una segunda vida de dirigente bastante más… movida.",
+        anecdote: "De adolescente, el FC Metz lo rechazó tras un examen médico fallido: le diagnosticaron una insuficiencia respiratoria. Así que firmó con el Nancy. El jugador «poco fuerte» ganaría tres Balones de Oro. El médico del Metz prefiere que no se hable más del tema." },
+      { nom: "Michel Drucker", metier: "Presentador de televisión eterno",
+        bio: "En antena desde 1964, Drucker ha sobrevivido a la ORTF, a la llegada del color, a la TDT y a unos once presidentes de la República. El sofá rojo de su programa dominical «Vivement dimanche» es el mueble más famoso de Francia.",
+        anecdote: "Su longevidad se ha vuelto un chiste nacional: entró en la televisión con de Gaulle y ahí sigue. En Francia hay dos cosas seguras: los impuestos, y Michel Drucker los domingos por la tarde." },
+      { nom: "Michel Blanc", metier: "Actor y director",
+        bio: "Miembro fundador de la compañía del Splendid, será para siempre Jean-Claude Dusse de «Les Bronzés», el eterno perdedor que sueña con «concretar». Pero detrás del cómico se escondía un actor inmenso, premiado en Cannes y capaz de interpretarlo todo, del burlesco a la tragedia.",
+        anecdote: "El eterno desafortunado del cine francés era en realidad uno de los más premiados: premio de interpretación en Cannes 1986 por «Tenue de soirée», y premio al guion en Cannes 1994 por «Grosse fatigue»… donde se interpreta a sí mismo frente a un doble que le roba la vida. Hasta quejándose de sí mismo ganaba premios." },
+      { nom: "Michel Houellebecq", metier: "Escritor, premio Goncourt 2010",
+        bio: "El novelista más traducido, más comentado y más deprimido de la literatura francesa contemporánea. «Las partículas elementales», «El mapa y el territorio», «Sumisión»: cada publicación es un acontecimiento nacional, cigarrillo incluido.",
+        anecdote: "En 2011 desapareció en plena gira de promoción, al punto de que la prensa habló de secuestro — simplemente se le olvidó avisar. Con buen humor, en 2014 lo convirtió en película: «El secuestro de Michel Houellebecq», donde él mismo interpreta su propio rapto. Meta, como siempre." },
+      { nom: "Michel Fugain", metier: "Cantante, jefe de tropa",
+        bio: "«Une belle histoire», «Fais comme l'oiseau», «Je n'aurai pas le temps»: Fugain escribió la banda sonora de los veranos franceses de los años 70, con un sentido solar de la melodía y un entusiasmo inoxidable.",
+        anecdote: "En 1972 fundó el Big Bazar: una tropa de unos cuarenta cantantes y bailarines con trajes multicolores, mitad comedia musical, mitad comuna hippie, que vivía y giraba junta. Imagínese un campamento de verano gigante… en el número uno de las listas." },
+      { nom: "Michel Galabru", metier: "Actor, 250 películas en el contador",
+        bio: "El sargento Gerber de «El gendarme de Saint-Tropez», el padre de «La jaula de las locas», pero también un trágico conmovedor, César al mejor actor por «El juez y el asesino» (1977). Una labia, una cara, una leyenda.",
+        anecdote: "Asumía con una franqueza desarmante haber actuado en decenas de bodrios «para pagar las facturas», declarando en esencia que aceptaba todo y clasificaba después. Resultado: 250 películas, algunas obras maestras, muchos churros — y cero arrepentimiento." },
+      { nom: "Michel Berger", metier: "Autor-compositor, orfebre de la canción",
+        bio: "Pigmalión de France Gall, creador de «Starmania» con Luc Plamondon, autor de «Message personnel» para Françoise Hardy y de «Quelque chose de Tennessee» para Johnny Hallyday. Desaparecido demasiado pronto en 1992, sigue siendo el melodista absoluto de la canción francesa.",
+        anecdote: "Michel Berger no se apellidaba Berger: su verdadero nombre era Michel Hamburger, hijo del gran profesor de medicina Jean Hamburger. Se entiende que un futuro crooner prefiriera no firmar sus baladas románticas como «Hamburger»." },
+      { nom: "Michel Audiard", metier: "Dialoguista, ametralladora de réplicas",
+        bio: "La pluma detrás de «Les Tontons flingueurs», «Un singe en hiver» y «Le cave se rebiffe». Sus diálogos de argot cincelado se recitan de memoria en todas las cenas familiares desde hace 60 años. Su hijo Jacques tiene una Palma de Oro; él tiene la inmortalidad.",
+        anecdote: "A él le debemos la réplica más citada del cine francés, en «Les Tontons flingueurs» (1963): «Los imbéciles se atreven a todo. Precisamente en eso se les reconoce.» Sesenta años después, sigue sirviendo en todas las reuniones de copropietarios." }
+    ],
+    chansons: [
+      { titre: "«Michelle»", artiste: "The Beatles — 1965",
+        histoire: "Paul McCartney compuso «Michelle» parodiando a los cantantes de cabaret de la orilla izquierda del Sena que imitaba de adolescente en las fiestas estudiantiles de Liverpool para parecer sofisticado. Años después, John Lennon le sugirió convertirla en una canción de verdad: Paul le pidió entonces a Jan Vaughan, profesora de francés y esposa de un amigo, palabras que sonaran bien — así nació «Michelle, ma belle, sont les mots qui vont très bien ensemble». La canción ganó el Grammy a la canción del año en 1967. El nombre solo tenía que «sonar francés». Misión cumplida." },
+      { titre: "«Michèle»", artiste: "Gérard Lenorman — 1976",
+        histoire: "En su origen, este texto del joven Didier Barbelivien — inspirado en un flirteo de instituto — se llamaba… «Marcelle». A Lenorman le encantó la melodía pero rechazó de plano el nombre, «todo menos romántico», y lo cambió por Michèle: el de un amor de sus 15 años en Auvernia, que terminó con el padre de la señorita amenazándolo con una escopeta. Grabada en otoño de 1975, la canción llegó al número uno en febrero de 1976 y vendió más de 300.000 copias. Gracias, Michèle. Y perdón, Marcelle." },
+      { titre: "«Les Michel»", artiste: "Frédéric Fromet (France Inter) — 2016",
+        histoire: "La única canción de la historia enteramente dedicada a los Michel como pueblo. Emitida en el programa satírico «Si tu écoutes, j'annule tout» de la radio pública francesa en enero de 2016, esta canción de Frédéric Fromet pasa revista a los Michel de Francia con la misma ternura burlona que caracteriza este sitio. Es decir: nuestro himno oficial." }
+    ]
   }
+};
+
+// ============================================================
+// Rendu
+// ============================================================
+let currentLang = localStorage.getItem('lang') || 'fr';
+
+function esc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function render() {
+  const t = I18N[currentLang];
+  document.documentElement.lang = currentLang;
+  document.title = t.htmlTitle;
+
+  document.getElementById('t-surtitre').textContent = t.surtitre;
+  document.getElementById('t-titre').textContent = t.titre;
+  document.getElementById('t-devise').textContent = t.devise;
+  document.getElementById('tab-accueil').textContent = t.tabs[0];
+  document.getElementById('tab-celebres').textContent = t.tabs[1];
+  document.getElementById('tab-chansons').textContent = t.tabs[2];
+  document.getElementById('t-accueil-h2').textContent = t.accueilH2;
+  document.getElementById('t-accueil-intro').textContent = t.accueilIntro;
+  document.getElementById('t-citation').textContent = t.citation;
+  document.getElementById('t-celebres-h2').textContent = t.celebresH2;
+  document.getElementById('t-celebres-intro').textContent = t.celebresIntro;
+  document.getElementById('t-chansons-h2').textContent = t.chansonsH2;
+  document.getElementById('t-chansons-intro').textContent = t.chansonsIntro;
+  document.getElementById('t-footer-logo').textContent = t.titre;
+  document.getElementById('t-footer-note').textContent = t.footerNote;
+
+  document.getElementById('galerie').innerHTML = t.photos.map(function (p, i) {
+    return '<figure style="transform: rotate(' + PHOTOS[i].tilt + ');">' +
+      '<img src="' + PHOTOS[i].src + '" alt="' + esc(p.titre) + '">' +
+      '<figcaption>' +
+        '<span class="photo-titre">' + esc(p.titre) + '</span>' +
+        '<span class="photo-legende">' + esc(p.legende) + '</span>' +
+      '</figcaption></figure>';
+  }).join('');
+
+  document.getElementById('celebres').innerHTML = t.celebres.map(function (m, i) {
+    const numero = (i + 1) < 10 ? '0' + (i + 1) : String(i + 1);
+    return '<article>' +
+      '<div class="celebre-entete">' +
+        '<span class="celebre-numero">' + numero + '</span>' +
+        '<div><h3>' + esc(m.nom) + '</h3>' +
+        '<span class="celebre-metier">' + esc(m.metier) + '</span></div>' +
+      '</div>' +
+      '<p class="celebre-bio">' + esc(m.bio) + '</p>' +
+      '<div class="anecdote">' +
+        '<span class="anecdote-label">' + esc(t.anecdoteLabel) + '</span>' +
+        '<p>' + esc(m.anecdote) + '</p>' +
+      '</div></article>';
+  }).join('');
+
+  document.getElementById('chansons').innerHTML = t.chansons.map(function (c, i) {
+    return '<article>' +
+      '<div class="chanson-entete">' +
+        '<h3>' + esc(c.titre) + '</h3>' +
+        '<span class="chanson-artiste">' + esc(c.artiste) + '</span>' +
+      '</div>' +
+      '<p class="chanson-histoire">' + esc(c.histoire) + '</p>' +
+      '<div class="video"><iframe src="' + EMBEDS[i] + '" title="' + esc(c.titre) + '" loading="lazy" ' +
+        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>' +
+      '</article>';
+  }).join('');
+
+  document.querySelectorAll('.langues button').forEach(function (b) { b.classList.remove('active'); });
+  document.getElementById('lang-' + currentLang).classList.add('active');
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  render();
+}
+
+function showPage(page, btn) {
+  document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('visible'); });
+  document.getElementById('page-' + page).classList.add('visible');
+  document.querySelectorAll('nav button').forEach(function (b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+render();
 </script>
 
 </body>
