@@ -91,6 +91,20 @@
     .video { position: relative; width: 100%; padding-top: 56.25%; background: #35281E; }
     .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
+    /* --- Bandeau vers la course au Panthéon --- */
+    .bandeau-course { max-width: 1060px; margin: 0 auto 34px; padding: 0 20px; }
+    .bandeau-course .strip {
+      background: #35281E; color: #F5EDDC; border-radius: 16px; padding: 20px 26px;
+      display: flex; align-items: center; gap: 22px; box-shadow: 0 18px 40px -26px rgba(53,40,30,0.7);
+    }
+    .bandeau-m { width: 48px; height: 48px; flex: none; border-radius: 50%; background: #8C2F1B; color: #FDF8EC; display: flex; align-items: center; justify-content: center; font-family: 'Abril Fatface', serif; font-size: 24px; }
+    .bandeau-textes { flex: 1; min-width: 0; }
+    .bandeau-titre { font-family: 'Abril Fatface', serif; font-size: 20px; color: #FDF8EC; line-height: 1.15; }
+    .bandeau-sous { font-family: 'Caveat', cursive; font-size: 18px; color: #c9b48f; }
+    .bandeau-btn { flex: none; background: #8C2F1B; color: #FDF8EC; border: none; padding: 12px 24px; border-radius: 999px; font-size: 15.5px; font-weight: 600; cursor: pointer; white-space: nowrap; font-family: 'Lora', serif; }
+    .bandeau-btn:hover { filter: brightness(1.1); }
+    @media (max-width: 620px) { .bandeau-course .strip { flex-direction: column; text-align: center; } .bandeau-btn { width: 100%; } }
+
     footer { border-top: 3px solid #35281E; margin-top: 20px; }
     .footer-contenu {
       max-width: 1060px; margin: 0 auto; padding: 26px 20px 34px 20px;
@@ -120,6 +134,7 @@
   <button class="active" id="tab-accueil" onclick="showPage('accueil', this)"></button>
   <button id="tab-celebres" onclick="showPage('celebres', this)"></button>
   <button id="tab-chansons" onclick="showPage('chansons', this)"></button>
+  <button id="tab-course" onclick="location.href='course.html'"></button>
 </nav>
 <div class="nav-ligne"></div>
 
@@ -147,6 +162,17 @@
   </div>
   <div class="chansons" id="chansons"></div>
 </main>
+
+<div class="bandeau-course" id="bandeau-course">
+  <div class="strip">
+    <div class="bandeau-m">M</div>
+    <div class="bandeau-textes">
+      <div class="bandeau-titre" id="t-bandeau-titre"></div>
+      <div class="bandeau-sous" id="t-bandeau-sous"></div>
+    </div>
+    <button class="bandeau-btn" id="t-bandeau-btn" onclick="location.href='course.html#/connexion'"></button>
+  </div>
+</div>
 
 <footer>
   <div class="footer-contenu">
@@ -196,6 +222,10 @@ const I18N = {
     chansonsIntro: "Des Beatles à France Inter : la preuve en musique que ce prénom inspire les plus grands.",
     anecdoteLabel: "L'anecdote",
     footerNote: "Site 100 % affectueux. Aucun Michel n'a été maltraité pendant la fabrication de ce site.",
+    tabCourse: "La course au Panthéon",
+    bandeauTitre: "Vous connaissez un Michel d'exception ?",
+    bandeauSous: "Créez un compte pour le proposer au Panthéon.",
+    bandeauBtn: "Rejoindre",
     photos: [
       { titre: "Michel à l'apéro", legende: "18h02. Michel est déjà en avance de deux tournées." },
       { titre: "Michel à la pétanque", legende: "« Tu tires ou tu pointes ? » — Michel, philosophe." },
@@ -265,6 +295,10 @@ const I18N = {
     chansonsIntro: "From the Beatles to French radio: musical proof that this name inspires the greatest.",
     anecdoteLabel: "The anecdote",
     footerNote: "A 100% affectionate website. No Michel was harmed in the making of this site.",
+    tabCourse: "The Pantheon Race",
+    bandeauTitre: "Do you know an exceptional Michel?",
+    bandeauSous: "Create an account to nominate him for the Pantheon.",
+    bandeauBtn: "Join",
     photos: [
       { titre: "Michel at apéritif hour", legende: "6:02 pm. Michel is already two rounds ahead of everyone." },
       { titre: "Michel playing pétanque", legende: "“Shoot or point?” — Michel, philosopher." },
@@ -334,6 +368,10 @@ const I18N = {
     chansonsIntro: "De los Beatles a la radio francesa: la prueba musical de que este nombre inspira a los más grandes.",
     anecdoteLabel: "La anécdota",
     footerNote: "Sitio 100 % cariñoso. Ningún Michel fue maltratado durante la fabricación de este sitio.",
+    tabCourse: "La carrera al Panteón",
+    bandeauTitre: "¿Conoce a un Michel excepcional?",
+    bandeauSous: "Cree una cuenta para proponerlo al Panteón.",
+    bandeauBtn: "Unirse",
     photos: [
       { titre: "Michel en el aperitivo", legende: "18:02. Michel ya lleva dos rondas de ventaja." },
       { titre: "Michel jugando petanca", legende: "«¿Tiras o apuntas?» — Michel, filósofo." },
@@ -408,6 +446,14 @@ function render() {
   document.getElementById('tab-accueil').textContent = t.tabs[0];
   document.getElementById('tab-celebres').textContent = t.tabs[1];
   document.getElementById('tab-chansons').textContent = t.tabs[2];
+  document.getElementById('tab-course').textContent = t.tabCourse;
+  document.getElementById('t-bandeau-titre').textContent = t.bandeauTitre;
+  document.getElementById('t-bandeau-sous').textContent = t.bandeauSous;
+  document.getElementById('t-bandeau-btn').textContent = t.bandeauBtn;
+  // Le bandeau d'invitation disparaît si une session Supabase existe déjà sur cet appareil
+  if (localStorage.getItem('sb-nyprqinjxwlmoyatvbpp-auth-token')) {
+    document.getElementById('bandeau-course').style.display = 'none';
+  }
   document.getElementById('t-accueil-h2').textContent = t.accueilH2;
   document.getElementById('t-accueil-intro').textContent = t.accueilIntro;
   document.getElementById('t-citation').textContent = t.citation;
