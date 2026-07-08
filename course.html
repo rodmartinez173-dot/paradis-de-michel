@@ -585,7 +585,7 @@ async function soumettreAuth() {
       // Vérification amicale avant l'inscription (l'unicité reste garantie en base)
       const { data: dejaPris } = await sb.from('profiles').select('pseudo').eq('pseudo', pseudo).maybeSingle();
       if (dejaPris) return erreur('auth', 'Ce nom de baptême est déjà pris par un autre fidèle.');
-      const { error } = await sb.auth.signUp({ email, password, options: { data: { pseudo } } });
+      const { data, error } = await sb.auth.signUp({ email, password, options: { data: { pseudo } } });
       if (error) {
         const msg = (error.message || '').trim();
         if (/already registered/i.test(msg)) return erreur('auth', 'Cette adresse a déjà sa place au Paradis. Connectez-vous plutôt.');
@@ -594,8 +594,14 @@ async function soumettreAuth() {
         if (/email.*invalid/i.test(msg)) return erreur('auth', 'Cette adresse ne ressemble à rien de connu.');
         return erreur('auth', (msg && msg !== '{}') ? msg : 'Le Paradis a eu un raté technique. Réessayez dans un instant.');
       }
-      document.getElementById('email-confirme').textContent = email;
-      vueAuth('check-email');
+      if (data && data.session) {
+        // Confirmation par email désactivée : l'inscription connecte directement
+        location.hash = intentionProposer ? '#/proposer' : '#/';
+        intentionProposer = false;
+      } else {
+        document.getElementById('email-confirme').textContent = email;
+        vueAuth('check-email');
+      }
     } else {
       const { error } = await sb.auth.signInWithPassword({ email, password });
       if (error) return erreur('auth', 'Saint Michel ne vous reconnaît pas.');
