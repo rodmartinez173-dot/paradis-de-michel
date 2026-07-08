@@ -619,8 +619,10 @@ async function soumettreOubli() {
   if (!email || !emailValide(email)) return erreur('forgot', "Une adresse valable, et on s'occupe du reste.");
   chargement('btn-forgot', true);
   try {
+    // Pas de fragment (#) dans l'adresse de retour : Supabase y ajoute ses
+    // propres jetons après un #, et deux fragments rendraient l'URL illisible.
     const { error } = await sb.auth.resetPasswordForEmail(email, {
-      redirectTo: location.origin + location.pathname + '#/connexion'
+      redirectTo: location.origin + location.pathname
     });
     if (error) return erreur('forgot', error.message);
     document.getElementById('email-reset').textContent = email;
